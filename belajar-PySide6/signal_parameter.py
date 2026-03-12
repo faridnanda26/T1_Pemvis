@@ -3,7 +3,8 @@ from PySide6.QtWidgets import (
     QApplication, 
     QWidget,
     QVBoxLayout,
-    QLabel
+    QLabel,
+    QLineEdit
 )
 from PySide6.QtCore import Qt
 
@@ -18,7 +19,9 @@ class MainWindow(QWidget):
         self.resize(600, 450)
         self.setMinimumSize(400, 300)
 
-        layout = QVBoxLayout
+        self.input.textChange.connect(self.teks_berubah)
+
+        layout = QVBoxLayout()
 
         self.center_on_screen()
 
