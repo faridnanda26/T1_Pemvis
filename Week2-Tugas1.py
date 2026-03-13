@@ -103,8 +103,8 @@ class MainWindow(QWidget):
         layout.addWidget(widget_btn)
 
         # TAMPILKAN DATA
-        widget_data = QWidget()
-        widget_data.setStyleSheet("border-left: 4px solid #8f8f8f; border-radius: 5px; background-color: #ebebeb")
+        self.widget_data = QWidget()
+        self.widget_data.setStyleSheet("border-left: 4px solid #8f8f8f; border-radius: 5px; background-color: #ebebeb")
         layout_data = QVBoxLayout()
 
         self.data_nama = QLabel()
@@ -125,15 +125,17 @@ class MainWindow(QWidget):
         layout_data.addWidget(self.data_kelamin)
 
         layout_data.addStretch()
-        widget_data.setLayout(layout_data)
+        self.widget_data.setLayout(layout_data)
 
-        layout.addWidget(widget_data)
+        layout.addWidget(self.widget_data)
 
         layout.addStretch()
         self.setLayout(layout)
         self.center_on_screen()
 
     def tampilkan_data(self):
+        self.widget_data.setStyleSheet("border-left: 4px solid #0a8f00; border-radius: 5px; background-color: #cbffc7")
+
         nama = self.input_nama.text()
         nim = self.input_nim.text()
         kelas = self.input_kelas.text()
@@ -145,6 +147,8 @@ class MainWindow(QWidget):
         self.data_kelamin.setText(f"Kelamin: {kelamin}")
 
     def reset_data(self):
+        self.widget_data.setStyleSheet("border-left: 4px solid #8f8f8f; border-radius: 5px; background-color: #ebebeb")
+        
         self.data_nama.setText("")
         self.data_nim.setText("")
         self.data_kelas.setText("")

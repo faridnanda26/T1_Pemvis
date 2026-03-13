@@ -63,6 +63,7 @@ class MainWindow(QWidget):
         self.input_username = QLineEdit()
         label_password = QLabel("Password:")
         self.input_password = QLineEdit()
+        self.input_password.setEchoMode(QLineEdit.EchoMode.Password)
 
         layout.addWidget(label_username)
         layout.addWidget(self.input_username)
@@ -70,8 +71,9 @@ class MainWindow(QWidget):
         layout.addWidget(self.input_password)
 
         # CHECKBOX
-        password_visible = QCheckBox("Tampilkan Password")
-        layout.addWidget(password_visible)
+        self.password_visible = QCheckBox("Tampilkan Password")
+        self.password_visible.stateChanged.connect(self.checked)
+        layout.addWidget(self.password_visible)
 
         # BUTTON
         container_btn = QWidget()
@@ -106,13 +108,22 @@ class MainWindow(QWidget):
 
         if username == "admin" and password == "12345":
             self.label_keterangan.setText("Login berhasil! Selamat datang, admin.")
+            self.label_keterangan.setStyleSheet("border-left: 4px solid rgb(10,189,64); border-radius: 5px; background-color: rgb(155,255,153); padding: 15px;")
         else:
             self.label_keterangan.setText("Login gagal! Username atau password salah.")
+            self.label_keterangan.setStyleSheet("border-left: 4px solid rgb(255,0,0); border-radius: 5px; background-color: rgb(255,153,153); padding: 15px;")
 
     def reset_process(self):
         self.input_username.clear()
         self.input_password.clear()
         self.label_keterangan.setText("")
+        self.label_keterangan.setStyleSheet("")
+
+    def checked(self):
+        if self.password_visible.isChecked():
+            self.input_password.setEchoMode(QLineEdit.EchoMode.Normal)
+        else:
+            self.input_password.setEchoMode(QLineEdit.EchoMode.Password)
 
     def center_on_screen(self):
         screen = QApplication.primaryScreen().geometry()
